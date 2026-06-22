@@ -1,6 +1,6 @@
 ﻿locals {
   location    = "eastus"
-  environment = "dev"
+  environment = "test"
 }
 
 module "resource_group" {
@@ -13,14 +13,11 @@ module "resource_group" {
 }
 
 module "virtual_network" {
-  source              = "./Virtual_network.tf"
+  source              = "./Virtual_network"
+  virtual_network_name = "demo-vnet"
   resource_group_name = module.resource_group.resource_group_name
   location            = local.location
-  virtual_network_name = "demo-vnet"
-  vnet_address_space   = ["10.0.0.0/16"]
-  tags = {
-    environment = local.environment
-  }
+  vnet_address_space       = ["10.0.0.0/16"] 
 }
 
 module "subnet" {
